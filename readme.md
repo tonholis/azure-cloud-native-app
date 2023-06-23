@@ -11,14 +11,16 @@ It gets an image from the end user in the website to be resized/processed in the
 ## Project
 
 ```
+infrastructure
+  bicep               --> Scripts to create the environment
 src
-  CloudNativeApp.sln	--> Solution file
-  Website				--> A Blazor client/website
+  CloudNativeApp.sln  --> Solution file
+  Website             --> A Blazor client/website
   Backend
-	Functions			--> Azure Functions to handle requests from the frontend
-	API					--> A .NET API as an alternative to Azure Functions
-	Resizer				--> A .NET Worker Service to resize images
-  Shared				--> A Shared library
+    Functions         --> Azure Functions to handle requests from the frontend
+    API               --> A .NET API as an alternative to Azure Functions
+    Resizer           --> A .NET Worker Service to resize images
+  Shared              --> A Shared library
 ```
 
 ## Stack
@@ -37,15 +39,15 @@ src
 
 1. The user uploads an image on the website.
 2. The website calls the RESTful API (or Azure Functions) to:
-2.1 Store the image on Azure Storage Account.
-2.2 Store transaction details in Cosmos DB.
-2.3 Publish ImageUploaded message in Azure Service Bus.
+    - Store the image on Azure Storage Account.
+    - Store transaction details in Cosmos DB.
+    - Publish ImageUploaded message in Azure Service Bus.
 3. The Resizer Service consumes the message ImageUploaded, and:
-3.1 Gets the image from Azure Storage Account.
-3.2 Resize the image and stores it in Azure Storage Account.
-3.3 Publishes ImageResized message to Azure Service Bus.
+    - Gets the image from Azure Storage Account.
+    - Resize the image and stores it in Azure Storage Account.
+    - Publishes ImageResized message to Azure Service Bus.
 4. The website's backend consumes the ImageResized message, and:
-4.1 Sends a message to Azure SignalR
+    - Sends a message to Azure SignalR
 5. The website frontend receives the message via websockets (SignalR) and updates the UI.
 
 
