@@ -2,13 +2,13 @@
 
 This is not a real app.
 
-It's a proof-of-concept to understand how to use cloud-native resources in Azure compose a distributed system.
+It's a proof-of-concept and over-engineered app to understand "cloud-native" resources in Azure to compose a distributed system.
 
 ## What does it do?
 
-It gets an image from the end user in the website to be resized/processed in the backend. The user gets notified (via SignalR) when the image is processed.
+It gets an image from the end user in the website to be resized/processed in the backend. The user gets notified (via SignalR) when the image is processed and ready to download.
 
-## Components
+## Project
 
 ```
 src
@@ -16,9 +16,9 @@ src
   Website				--> A Blazor client/website
   Backend
 	Functions			--> Azure Functions to handle requests from the frontend
-	API					--> A .NET API as an alternative to Azure Functions.
-	ResizerService		--> A .NET Worker Service to resize images
-	Shared				--> A Shared library
+	API					--> A .NET API as an alternative to Azure Functions
+	Resizer				--> A .NET Worker Service to resize images
+  Shared				--> A Shared library
 ```
 
 ## Stack
@@ -51,18 +51,25 @@ src
 
 ## Setup 1 - Azure Functions as backend
 
-The website will send requests to Azure Functions. 
+The website sends requests to Azure Functions. 
 
 The goal is to validate costs and resiliency of serverless techniques in Azure and how to deal with cold-start's of Azure Functions.
 
 ## Setup 2 - RESTful API as backend
 
-The website will send requests to a RESTful API which runs in a Docker Container hosted in Azure App Service PaaS.
+The website sends requests to a RESTful API which runs in a Docker container hosted in Azure App Service PaaS.
 
-The goal is to validate costs and resiliency of PaaS hosting model in Azure.
+The goal is to validate PaaS hosting model in Azure.
 
+## Other things to test later
 
-## Other things to test
-
+* GitHub Actions to automate deployments.
 * Built-in Authentication in App Service for the website.
 * Azure Managed Identities to protect the backend.
+* Bicep to automate creation of resources in Azure.
+
+## Tools 
+
+* GitHub
+* Visual Studio Code
+* Old Macbook Pro mid 2012
